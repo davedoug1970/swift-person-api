@@ -1,11 +1,8 @@
 import Vapor
 
 func routes(_ app: Application) throws {
-    app.get { req async in
-        "It works!"
-    }
+    let personController = PersonController()
 
-    app.get("hello") { req async -> String in
-        "Hello, world!"
-    }
+    let apiRoutes = app.grouped("api", "v1")
+    try apiRoutes.grouped("persons").register(collection: personController)
 }
